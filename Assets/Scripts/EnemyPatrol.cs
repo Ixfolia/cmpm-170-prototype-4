@@ -27,6 +27,8 @@ public class EnemyPatrol : MonoBehaviour
     private bool doorObj;
     private bool doorColliderObj;
 
+    [SerializeField] private AudioClip deathSound; // Sound to play when player is detected
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -77,6 +79,9 @@ public class EnemyPatrol : MonoBehaviour
             openDoorScript.opened = false;          // Door is closed
             key.SetActive(true);
             doorCollider.SetActive(true);
+
+            // Play the sound
+            SFXManager.instance.playSFXClip(deathSound, transform, 1.0f);
 
             // Load a different scene
             SceneManager.LoadScene("MenuScene");

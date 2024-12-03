@@ -18,6 +18,8 @@ public class OpenDoor : MonoBehaviour
     private bool keyObj;
     private bool doorColliderObj;
 
+    [SerializeField] private AudioClip doorOpenSound; // Sound to play when door is unlocked
+
     void Start() {
         // Initialize references to other scripts
         collectKeyScript = key.GetComponent<CollectKey>();
@@ -65,6 +67,8 @@ public class OpenDoor : MonoBehaviour
                 opened = false;          // Door is closed
                 key.SetActive(true);
                 doorCollider.SetActive(true);
+                // Play the sound
+                SFXManager.instance.playSFXClip(doorOpenSound, transform, 1.0f);
                 SceneManager.LoadScene("MenuScene");
             }
         }
