@@ -33,6 +33,12 @@ public class PlayerMovement : MonoBehaviour
         // Change model based on hiding state
         playerModel.SetActive(!hiding);
         hidingModel.SetActive(hiding);
+
+        // rotate the character to face the opposite direction of movement
+        if (movement != Vector3.zero)
+        {
+            transform.rotation = Quaternion.LookRotation(movement);
+        }
     }
 
     void FixedUpdate()
