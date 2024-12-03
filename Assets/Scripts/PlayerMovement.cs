@@ -41,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
         if (movement != Vector3.zero && !hiding)
         {
             // Move the player
-            rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime * -1);
+            rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime);
         }
         else {
             // Stop the player when no keys are pressed
