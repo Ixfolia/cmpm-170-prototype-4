@@ -7,6 +7,7 @@ public class OpenDoor : MonoBehaviour
 {
     public GameObject door; 
     public GameObject player; 
+    public string sceneName;
     public bool opened;
     public GameObject key;
     public GameObject doorCollider;
@@ -69,7 +70,7 @@ public class OpenDoor : MonoBehaviour
                 doorCollider.SetActive(true);
                 // Play the sound
                 SFXManager.instance.playSFXClip(doorOpenSound, transform, 1.0f);
-                SceneManager.LoadScene("MenuScene");
+                SceneManager.LoadScene(sceneName);
             }
         }
     }

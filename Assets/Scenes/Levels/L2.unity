@@ -12073,6 +12073,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   door: {fileID: 1450155998}
   player: {fileID: 1937014264}
+  sceneName: L3
   opened: 0
   key: {fileID: 218470}
   doorCollider: {fileID: 1724925478}
