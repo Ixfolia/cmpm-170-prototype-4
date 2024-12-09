@@ -13,6 +13,8 @@ public class EnemyPatrol : MonoBehaviour
     public Transform player;
     public GameObject playerObj;
 
+    private bool isHiding;
+
     public GameObject key;
     public GameObject door;
     public GameObject doorCollider;
@@ -47,7 +49,7 @@ public class EnemyPatrol : MonoBehaviour
         doorColliderObj = unlockDoorScript.doorUnlocked;
         keyObj = collectKeyScript.keyCollected;
 
-        bool isHiding = playerObj.GetComponent<PlayerMovement>().hiding;
+        isHiding = playerObj.GetComponent<PlayerMovement>().hiding;
 
         // Delay handling
         if (delayTimer > 0)
@@ -76,18 +78,39 @@ public class EnemyPatrol : MonoBehaviour
             StartTurning();
         }
 
-        if (IsPlayerInCone() && !isHiding)
-        {
-            Debug.Log("Player detected within the cone!");
+        // if (IsPlayerInCone() && !isHiding)
+        // {
+        //     Debug.Log("Player detected within the cone!");
 
+        //     collectKeyScript.keyCollected = false;
+        //     unlockDoorScript.doorUnlocked = false;
+        //     openDoorScript.opened = false;
+        //     key.SetActive(true);
+        //     doorCollider.SetActive(true);
+
+        //     SFXManager.instance.playSFXClip(deathSound, transform, 1.0f);
+
+        //     SceneManager.LoadScene("MenuScene");
+        // }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        // Check if the player entered the cone
+        if (other.CompareTag("Player") && !isHiding)
+        {
+            Debug.Log("Player detected by cone!");
+
+            // Reset key and door states
             collectKeyScript.keyCollected = false;
             unlockDoorScript.doorUnlocked = false;
             openDoorScript.opened = false;
+
             key.SetActive(true);
             doorCollider.SetActive(true);
 
+            // Play the death sound and reload the scene
             SFXManager.instance.playSFXClip(deathSound, transform, 1.0f);
-
             SceneManager.LoadScene("MenuScene");
         }
     }
@@ -115,21 +138,21 @@ public class EnemyPatrol : MonoBehaviour
         }
     }
 
-    bool IsPlayerInCone()
-    {
-        Vector3 enemyToPlayer = player.position - transform.position;
+    // bool IsPlayerInCone()
+    // {
+    //     Vector3 enemyToPlayer = player.position - transform.position;
 
-        if (enemyToPlayer.magnitude <= detectionRange)
-        {
-            float angle = Vector3.Angle(transform.forward, enemyToPlayer);
-            if (angle <= coneAngle / 2f)
-            {
-                return true;
-            }
-        }
+    //     if (enemyToPlayer.magnitude <= detectionRange)
+    //     {
+    //         float angle = Vector3.Angle(transform.forward, enemyToPlayer);
+    //         if (angle <= coneAngle / 2f)
+    //         {
+    //             return true;
+    //         }
+    //     }
 
-        return false;
-    }
+    //     return false;
+    // }
 
     private void OnDrawGizmos()
     {
